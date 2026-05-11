@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="it">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EOS | e-shell</title>
+    <meta name="description" content="e-shell: shell ibrida di EOS. Prompt interattivo con auto-detection comandi E e shell. Closed source." />
+    <link rel="stylesheet" href="../assets/styles.css" />
+  </head>
+  <body>
+    <div class="bg-noise"></div>
+    <header class="site-header">
+      <a class="brand" href="../index.html"><span class="brand-block">E</span><span class="brand-text">EOS</span></a>
+      <button class="menu-toggle" aria-label="Apri menu" aria-expanded="false">Menu</button>
+      <nav class="nav" data-nav>
+        <a href="../index.html">Home</a>
+        <a href="e-lang.html">e-lang</a>
+        <a href="e-shell.html">e-shell</a>
+        <a href="e-browser.html">e-browser</a>
+        <a href="e-runtime.html">e-runtime</a>
+        <a href="eos-core.html">EOS Core</a>
+      </nav>
+    </header>
+    <main>
+      <section class="feature-hero reveal">
+        <article class="feature-pane">
+          <p class="kicker">Closed Source</p>
+          <h1>e-shell</h1>
+          <p>
+            e-shell e il terminale interattivo dell'ecosistema EOS. Unisce comandi di sistema e valutazione
+            di espressioni E in un'unica interfaccia. Auto-detection del contesto: se il comando e un'espressione
+            E valida, la valuta. Altrimenti lo esegue come comando di sistema.
+          </p>
+          <div class="jump-links">
+            <a href="#capabilities">Capabilities</a>
+            <a href="#features">Features</a>
+            <a href="#integrations">Integrazioni</a>
+          </div>
+        </article>
+        <aside class="feature-meta">
+          <dl>
+            <dt>Categoria</dt>
+            <dd>CLI / Terminale</dd>
+            <dt>Accesso</dt>
+            <dd>Closed source</dd>
+            <dt>Modalita</dt>
+            <dd>Interattiva + Script</dd>
+            <dt>Compatibilita</dt>
+            <dd>Linux, macOS, WSL</dd>
+          </dl>
+        </aside>
+      </section>
+
+      <section class="section-block reveal" id="capabilities">
+        <h3>Funzionalita</h3>
+        <ul class="feature-list">
+          <li><strong>Prompt interattivo:</strong> shell read-eval-print loop con colorazione e stato.</li>
+          <li><strong>Auto-detection:</strong> riconosce se l'input e un'espressione E o un comando PATH.</li>
+          <li><strong>Valutazione E:</strong> esegue espressioni matematiche, chiamate a funzione, assegnazioni.</li>
+          <li><strong>Comandi built-in:</strong> <code>cd</code>, <code>exit</code>, navigazione filesystem.</li>
+          <li><strong>History:</strong> buffer comandi con navigazione UP/DOWN.</li>
+        </ul>
+      </section>
+
+      <section class="section-block reveal" id="features">
+        <h3>Caratteristiche tecniche</h3>
+        <ul class="feature-list">
+          <li>Multi-piattaforma: pacchetto installabile via script.</li>
+          <li>Integrazione nativa con e-lang per esecuzione script <code>.eee</code>.</li>
+          <li>Colorazione output e prompt configurabile.</li>
+          <li>Modalita interattiva e scriptabile (pipeline).</li>
+        </ul>
+      </section>
+
+      <section class="section-block reveal" id="integrations">
+        <h3>Integrazioni</h3>
+        <p>e-shell si integra con tutti i moduli EOS:</p>
+        <ul class="feature-list">
+          <li><strong>e-lang:</strong> parsing ed esecuzione di espressioni e script.</li>
+          <li><strong>e-runtime:</strong> compilazione on-demand di moduli.</li>
+          <li><strong>e-browser:</strong> avvio di sessioni browser da linea di comando.</li>
+          <li><strong>EOS Core:</strong> connessione a kernel bare metal via seriale (futuro).</li>
+        </ul>
+      </section>
+    </main>
+    <footer class="site-footer">
+      <p>Modulo EOS: e-shell — closed source</p>
+      <a href="e-browser.html">Prossimo: e-browser</a>
+    </footer>
+    <script src="../assets/app.js"></script>
+  </body>
+</html>

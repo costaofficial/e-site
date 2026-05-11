@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="it">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EOS | e-runtime</title>
+    <meta name="description" content="e-runtime: compilatore E → LLVM IR. Pipeline .eee → IR → oggetto nativo. Modalita user e bare metal." />
+    <link rel="stylesheet" href="../assets/styles.css" />
+  </head>
+  <body>
+    <div class="bg-noise"></div>
+    <header class="site-header">
+      <a class="brand" href="../index.html"><span class="brand-block">E</span><span class="brand-text">EOS</span></a>
+      <button class="menu-toggle" aria-label="Apri menu" aria-expanded="false">Menu</button>
+      <nav class="nav" data-nav>
+        <a href="../index.html">Home</a>
+        <a href="e-lang.html">e-lang</a>
+        <a href="e-shell.html">e-shell</a>
+        <a href="e-browser.html">e-browser</a>
+        <a href="e-runtime.html">e-runtime</a>
+        <a href="eos-core.html">EOS Core</a>
+      </nav>
+    </header>
+    <main>
+      <section class="feature-hero reveal">
+        <article class="feature-pane">
+          <p class="kicker">Closed Source</p>
+          <h1>e-runtime</h1>
+          <p>
+            e-runtime e il compilatore E: un frontend Rust che trasforma codice sorgente <code>.eee</code>
+            in LLVM IR, producendo poi codice nativo per architetture x86.
+          </p>
+          <div class="jump-links">
+            <a href="#pipeline">Pipeline</a>
+            <a href="#modes">Modalita</a>
+            <a href="#targets">Target supportati</a>
+          </div>
+        </article>
+        <aside class="feature-meta">
+          <dl>
+            <dt>Categoria</dt>
+            <dd>Compilatore / Runtime</dd>
+            <dt>Accesso</dt>
+            <dd>Closed source</dd>
+            <dt>Linguaggio host</dt>
+            <dd>Rust</dd>
+            <dt>Backend</dt>
+            <dd>LLVM 18</dd>
+            <dt>CLI</dt>
+            <dd><code>e build</code>, <code>e run</code></dd>
+          </dl>
+        </aside>
+      </section>
+
+      <section class="section-block reveal" id="pipeline">
+        <h3>Pipeline di compilazione</h3>
+        <p>Il compilatore trasforma il sorgente E in codice nativo attraverso questi passaggi:</p>
+        <ol class="timeline">
+          <li><strong>Lexer:</strong> tokenizzazione del sorgente <code>.eee</code> in token (keyword, numeri, stringhe, operatori).</li>
+          <li><strong>Parser:</strong> parsing ricorsivo discendente che produce un AST (Abstract Syntax Tree).</li>
+          <li><strong>Compiler:</strong> walk dell'AST e generazione di LLVM IR. Gestisce scope, tipi, espressioni, controllo di flusso.</li>
+          <li><strong>LLVM:</strong> llc compila l'IR in codice macchina per l'architettura target.</li>
+        </ol>
+      </section>
+
+      <section class="section-block reveal" id="modes">
+        <h3>Modalita di esecuzione</h3>
+        <ul class="feature-list">
+          <li><strong>User mode:</strong> compila per x86_64-pc-linux-gnu con libc. Supporta printf, malloc, strlen. Usato per script e automazione.</li>
+          <li><strong>Kernel mode (--kernel):</strong> compila per i686-unknown-elf senza libc. Nessuna dipendenza runtime. Built-in per I/O bare metal (inb, outb, VGA, PS/2).</li>
+          <li><strong>Dry-run:</strong> interpreta lo script senza compilare. Output di log per validazione. Comando <code>e run</code>.</li>
+        </ul>
+      </section>
+
+      <section class="section-block reveal" id="targets">
+        <h3>Target supportati</h3>
+        <ul class="feature-list">
+          <li><code>x86_64-pc-linux-gnu</code> — user mode, compilazione nativa</li>
+          <li><code>i686-unknown-elf</code> — kernel mode, bare metal, zero dipendenze</li>
+        </ul>
+        <p>Il compilatore e scritto in Rust e genera LLVM IR tramite emissione diretta di istruzioni LLVM. In kernel mode, funzioni come <code>vga_clear</code>, <code>kb_read_raw</code>, <code>inb</code>/<code>outb</code> sono tradotte in assembly inline LLVM.</p>
+      </section>
+    </main>
+    <footer class="site-footer">
+      <p>Modulo EOS: e-runtime — closed source</p>
+      <a href="e-shell.html">Prossimo: e-shell</a>
+    </footer>
+    <script src="../assets/app.js"></script>
+  </body>
+</html>

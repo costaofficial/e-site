@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="it">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EOS | e-browser</title>
+    <meta name="description" content="e-browser: browser WebView di EOS. Navigazione integrata con l'ecosistema. Closed source." />
+    <link rel="stylesheet" href="../assets/styles.css" />
+  </head>
+  <body>
+    <div class="bg-noise"></div>
+    <header class="site-header">
+      <a class="brand" href="../index.html"><span class="brand-block">E</span><span class="brand-text">EOS</span></a>
+      <button class="menu-toggle" aria-label="Apri menu" aria-expanded="false">Menu</button>
+      <nav class="nav" data-nav>
+        <a href="../index.html">Home</a>
+        <a href="e-lang.html">e-lang</a>
+        <a href="e-shell.html">e-shell</a>
+        <a href="e-browser.html">e-browser</a>
+        <a href="e-runtime.html">e-runtime</a>
+        <a href="eos-core.html">EOS Core</a>
+      </nav>
+    </header>
+    <main>
+      <section class="feature-hero reveal">
+        <article class="feature-pane">
+          <p class="kicker">Closed Source</p>
+          <h1>e-browser</h1>
+          <p>
+            e-browser e un mini browser basato su WebView integrato nell'ecosistema EOS. Scritto in E,
+            renderizza HTML/CSS/JS nativo via WebKit e puo essere controllato da script <code>.eee</code>
+            per automazione browser.
+          </p>
+          <div class="jump-links">
+            <a href="#capabilities">Capabilities</a>
+            <a href="#features">Features</a>
+            <a href="#integrations">Integrazioni</a>
+          </div>
+        </article>
+        <aside class="feature-meta">
+          <dl>
+            <dt>Categoria</dt>
+            <dd>Browser / WebView</dd>
+            <dt>Accesso</dt>
+            <dd>Closed source</dd>
+            <dt>Engine</dt>
+            <dd>WebKit (wry)</dd>
+            <dt>Scritto in</dt>
+            <dd>E + Rust</dd>
+          </dl>
+        </aside>
+      </section>
+
+      <section class="section-block reveal" id="capabilities">
+        <h3>Funzionalita</h3>
+        <ul class="feature-list">
+          <li><strong>Navigazione web:</strong> barra URL, pulsanti Back/Forward/Reload.</li>
+          <li><strong>Interfaccia E:</strong> definita in HTML/CSS/JS dentro un blocco <code>:ui</code> in file <code>.eee</code>.</li>
+          <li><strong>Dark theme:</strong> tema Catppuccin Mocha integrato.</li>
+          <li><strong>Controllo da script:</strong> avviabile e controllabile da altri moduli EOS.</li>
+          <li><strong>Modalita kiosk:</strong> apertura diretta URL da linea di comando.</li>
+        </ul>
+      </section>
+
+      <section class="section-block reveal" id="features">
+        <h3>Caratteristiche tecniche</h3>
+        <ul class="feature-list">
+          <li>Basato su wry (WebKit WebView per Rust).</li>
+          <li>UI definita nel sorgente E come HTML inline.</li>
+          <li>Supporto per JavaScript e comunicazione con l'host E.</li>
+          <li>Auto-prefixing URL con <code>https://</code>.</li>
+          <li>Validazione URL e gestione errori di rete.</li>
+        </ul>
+      </section>
+
+      <section class="section-block reveal" id="integrations">
+        <h3>Integrazioni</h3>
+        <p>e-browser si integra con l'ecosistema EOS per automazione e testing:</p>
+        <ul class="feature-list">
+          <li><strong>e-lang:</strong> script <code>.eee</code> possono aprire URL e interagire col browser.</li>
+          <li><strong>e-shell:</strong> comando <code>e --url https://...</code> per apertura diretta.</li>
+          <li><strong>e-runtime:</strong> compilazione del modulo browser come binario nativo.</li>
+        </ul>
+      </section>
+    </main>
+    <footer class="site-footer">
+      <p>Modulo EOS: e-browser — closed source</p>
+      <a href="e-runtime.html">Prossimo: e-runtime</a>
+    </footer>
+    <script src="../assets/app.js"></script>
+  </body>
+</html>

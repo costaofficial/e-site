@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="it">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EOS | e-lang</title>
+    <meta name="description" content="e-lang: linguaggio open source di EOS — sistemi e automazione con sintassi do/done, compilazione LLVM, bare metal." />
+    <link rel="stylesheet" href="../assets/styles.css" />
+  </head>
+  <body>
+    <div class="bg-noise"></div>
+    <header class="site-header">
+      <a class="brand" href="../index.html"><span class="brand-block">E</span><span class="brand-text">EOS</span></a>
+      <button class="menu-toggle" aria-label="Apri menu" aria-expanded="false">Menu</button>
+      <nav class="nav" data-nav>
+        <a href="../index.html">Home</a>
+        <a href="e-lang.html">e-lang</a>
+        <a href="e-shell.html">e-shell</a>
+        <a href="e-browser.html">e-browser</a>
+        <a href="e-runtime.html">e-runtime</a>
+        <a href="eos-core.html">EOS Core</a>
+      </nav>
+    </header>
+    <main>
+      <section class="feature-hero reveal">
+        <article class="feature-pane">
+          <p class="kicker">Open Source</p>
+          <h1>e-lang</h1>
+          <p>
+            e-lang e un linguaggio di programmazione per sistemi e automazione. Compila direttamente in LLVM IR
+            e puo girare su bare metal. Sintassi leggibile con blocchi <code>do ... done</code>, dati strutturati,
+            operatori bitwise, e array statici su stack.
+          </p>
+          <div class="jump-links">
+            <a href="#syntax">Sintassi</a>
+            <a href="#types">Tipi di dato</a>
+            <a href="#ops">Operatori</a>
+            <a href="#control">Controllo di flusso</a>
+            <a href="#kernel">Modalita kernel</a>
+            <a href="#snippet">Esempi</a>
+          </div>
+        </article>
+        <aside class="feature-meta">
+          <dl>
+            <dt>Categoria</dt>
+            <dd>Linguaggio / DSL</dd>
+            <dt>Accesso</dt>
+            <dd>Open source</dd>
+            <dt>Compilazione</dt>
+            <dd>LLVM IR &rarr; i686 / x86_64</dd>
+            <dt>Modalita</dt>
+            <dd>User mode + Bare metal</dd>
+            <dt>File</dt>
+            <dd><code>.eee</code></dd>
+          </dl>
+        </aside>
+      </section>
+
+      <!-- SINTASSI BASE -->
+      <section class="section-block reveal" id="syntax">
+        <h3>Variabili e scope</h3>
+        <p>Le variabili si dichiarano con <code>let</code>. Lo scope e lessicale: le variabili dichiarate dentro un blocco <code>{ }</code> sono visibili solo al suo interno e shadowano quelle esterne.</p>
+        <pre><code>let x = 5
+let y = x + 10
+
+when x > 3 {
+  let x = 99       // shadowa x esterno
+  log x            // stampa 99
+}
+log x              // stampa 5 (scope esterno)</code></pre>
+      </section>
+
+      <!-- TIPI DI DATO -->
+      <section class="section-block reveal" id="types">
+        <h3>Tipi di dato</h3>
+        <p>E supporta <code>data</code> per tipi strutturati e <code>mem</code> per array statici su stack.</p>
+
+        <h4>data (record)</h4>
+        <pre><code>data Point x y
+data KeyEvent scancode ascii flags
+
+let p = Point 10 20
+let v = p.x              // accesso ai campi con il punto
+let q = Point p.x (p.y + 5)</code></pre>
+
+        <h4>mem (array statici)</h4>
+        <pre><code>let buf = mem 256       // 256 elementi su stack, zero-inizializzati
+let val = buf[0]         // lettura per indice
+let history = mem 1024   // perfetto per buffer kernel</code></pre>
+      </section>
+
+      <!-- OPERATORI -->
+      <section class="section-block reveal" id="ops">
+        <h3>Operatori</h3>
+
+        <h4>Aritmetici e bitwise</h4>
+        <pre><code>let a = 10 + 3          // addizione
+let b = 10 - 3          // sottrazione
+let c = 10 * 3          // moltiplicazione
+let d = 10 / 3          // divisione intera
+
+let e = 0xFF & 0x0F     // bitwise AND  → 15
+let f = 0xF0 | 0x0F     // bitwise OR   → 255
+let g = 0xFF ^ 0x0F     // bitwise XOR  → 240
+let h = ~15             // bitwise NOT  → -16
+let i = 1 << 3          // shift left   → 8
+let j = 16 >> 2         // shift right  → 4</code></pre>
+
+        <h4>Confronto e logici</h4>
+        <pre><code>when x == 5 and y != 10 do log "ok" done
+when x > 3 or x < 0 do log "range" done
+when not (x > 10) do log "not" done</code></pre>
+      </section>
+
+      <!-- CONTROLLO DI FLUSSO -->
+      <section class="section-block reveal" id="control">
+        <h3>Controllo di flusso</h3>
+
+        <h4>when / or (if / else)</h4>
+        <pre><code>when x > 5 {
+  log "big"
+} or when x > 2 {
+  log "medium"
+} or {
+  log "small"
+}
+
+// Sintassi alternativa con do...done
+when x > 5 do
+  log "big"
+done</code></pre>
+
+        <h4>while / stop / skip</h4>
+        <pre><code>let i = 0
+while i < 10 do
+  when i == 5 do stop done    // esce dal loop
+  when i == 3 do skip done    // salta alla prossima iterazione
+  let i = i + 1
+done</code></pre>
+      </section>
+
+      <!-- KERNEL MODE -->
+      <section class="section-block reveal" id="kernel">
+        <h3>Modalita kernel (bare metal)</h3>
+        <p>Con il flag <code>--kernel</code>, E compila per i686-unknown-elf senza libc. Le seguenti primitive sono disponibili come built-in che generano LLVM IR inline:</p>
+        <ul class="feature-list">
+          <li><code>kb_init _</code> — abilita controller PS/2 tastiera</li>
+          <li><code>kb_read_raw _</code> — poll del byte allo stato della porta 0x64, restituisce scancode</li>
+          <li><code>vga_clear _</code> — pulisce buffer VGA 80x25 a 0xB8000</li>
+          <li><code>vga_raw_write char offset color</code> — scrive carattere e attributo in VGA</li>
+          <li><code>vga_string str x y color</code> — scrive stringa in posizione VGA</li>
+          <li><code>vga_scroll _</code> — scrolla lo schermo di una riga verso l'alto</li>
+          <li><code>vga_read_char row col</code> — legge carattere dalla memoria VGA</li>
+          <li><code>eval_simple row start end</code> — valuta espressione aritmetica dalla riga VGA</li>
+          <li><code>print_num row col color value</code> — stampa numero decimale su VGA</li>
+          <li><code>inb port</code> / <code>outb port val</code> — I/O porte x86</li>
+          <li><code>reboot _</code> — reset CPU via controller tastiera (0xFE su porta 0x64)</li>
+          <li><code>halt _</code> — loop infinito (ferma il kernel)</li>
+        </ul>
+      </section>
+
+      <!-- ESEMPI -->
+      <section class="section-block reveal" id="snippet">
+        <h3>Esempio: kernel minimo EOS</h3>
+        <pre><code>data Cursor x y
+
+fn set_cursor cur do
+  let pos = cur.y * 80 + cur.x
+  let lo = pos - (pos / 256) * 256
+  let hi = pos / 256
+  outb 0x3D4 0x0F
+  outb 0x3D5 lo
+  outb 0x3D4 0x0E
+  outb 0x3D5 hi
+done
+
+fn main _ do
+  let cur = Cursor 2 3
+  let history = mem 1024
+  vga_clear _
+  kb_init _
+
+  while 1 do
+    let sc = kb_read_raw _
+    when sc == 0x1C do           // Enter
+      let cur = Cursor 2 (cur.y + 1)
+      set_cursor cur
+    done
+  done
+done</code></pre>
+
+        <h3>Build</h3>
+        <pre><code>e build --kernel kernel.eee -o kernel.ll
+llc-18 -filetype=obj kernel.ll -o kernel.o
+ld -m elf_i386 -T linker.ld kernel.o -o kernel.elf
+qemu-system-x86_64 -kernel kernel.elf</code></pre>
+      </section>
+    </main>
+    <footer class="site-footer">
+      <p>Modulo EOS: e-lang — open source</p>
+      <a href="e-shell.html">Prossimo: e-shell</a>
+    </footer>
+    <script src="../assets/app.js"></script>
+  </body>
+</html>

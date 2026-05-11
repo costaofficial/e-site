@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="it">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EOS | Ecosistema Operativo</title>
+    <meta
+      name="description"
+      content="EOS e un ecosistema operativo con e-lang open source e moduli privati e-shell, e-browser, e-runtime, EOS Core."
+    />
+    <link rel="stylesheet" href="assets/styles.css" />
+  </head>
+  <body>
+    <div class="bg-noise"></div>
+    <header class="site-header">
+      <a class="brand" href="index.html">
+        <span class="brand-block">E</span>
+        <span class="brand-text">EOS</span>
+      </a>
+      <button class="menu-toggle" aria-label="Apri menu" aria-expanded="false">Menu</button>
+      <nav class="nav" data-nav>
+        <a href="index.html">Home</a>
+        <a href="pages/e-lang.html">e-lang</a>
+        <a href="pages/e-shell.html">e-shell</a>
+        <a href="pages/e-browser.html">e-browser</a>
+        <a href="pages/e-runtime.html">e-runtime</a>
+        <a href="pages/eos-core.html">EOS Core</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero reveal">
+        <p class="kicker">Piattaforma Developer</p>
+        <h1>EOS: linguaggio, shell, browser, kernel. <br/>Un ecosistema operativo completo.</h1>
+        <p class="lead">
+          e-lang e il linguaggio open source al centro di EOS. Compila in LLVM IR e gira su bare metal.
+          I moduli shell, browser, runtime e kernel completano la piattaforma.
+        </p>
+        <div class="hero-actions">
+          <a class="btn primary" href="pages/e-lang.html">Scopri e-lang</a>
+          <a class="btn" href="pages/eos-core.html">EOS Core</a>
+        </div>
+      </section>
+
+      <section class="section-block reveal" aria-label="Stato accesso moduli">
+        <h3>Moduli della piattaforma</h3>
+        <ul class="feature-list">
+          <li><strong>e-lang:</strong> Linguaggio open source. Sintassi, tipi, operatori, esempi — tutto pubblico e documentato.</li>
+          <li><strong>e-shell:</strong> Terminale interattivo closed source. Auto-detection comandi E e PATH.</li>
+          <li><strong>e-browser:</strong> Browser WebView closed source. Navigazione integrata nell'ecosistema.</li>
+          <li><strong>e-runtime:</strong> Compilatore E closed source. Pipeline .eee → LLVM IR → codice nativo.</li>
+          <li><strong>EOS Core:</strong> Kernel bare metal closed source. Scritto al 100% in E, zero C.</li>
+        </ul>
+      </section>
+
+      <section class="orbit reveal" aria-label="Mappa moduli EOS">
+        <div class="orbit-center">
+          <span class="orbit-label">Hub centrale</span>
+          <h2>EOS</h2>
+          <p>Orchestra linguaggio, shell, browser e runtime.</p>
+        </div>
+        <a class="orbit-node n1" href="pages/e-lang.html">e-lang</a>
+        <a class="orbit-node n2" href="pages/e-shell.html">e-shell</a>
+        <a class="orbit-node n3" href="pages/e-browser.html">e-browser</a>
+        <a class="orbit-node n4" href="pages/e-runtime.html">e-runtime</a>
+        <a class="orbit-node n5" href="pages/eos-core.html">EOS Core</a>
+      </section>
+
+      <section class="feature-grid reveal" id="feature-grid">
+        <article class="feature-card">
+          <p class="eyebrow">Linguaggio</p>
+          <h3>e-lang</h3>
+          <p>Linguaggio per sistemi e automazione. Compila in LLVM IR. Sintassi con <code>data</code>, <code>mem</code>, <code>when/or</code>, bitwise, scope lessicale.</p>
+          <p class="status open">Open source</p>
+          <a href="pages/e-lang.html">Documentazione completa</a>
+        </article>
+        <article class="feature-card">
+          <p class="eyebrow">Terminale</p>
+          <h3>e-shell</h3>
+          <p>Shell ibrida con auto-detection: valuta espressioni E o esegue comandi di sistema. History, colori, multi-piattaforma.</p>
+          <p class="status closed">Closed source</p>
+          <a href="pages/e-shell.html">Vai alla pagina</a>
+        </article>
+        <article class="feature-card">
+          <p class="eyebrow">Navigazione</p>
+          <h3>e-browser</h3>
+          <p>Mini browser WebView basato su WebKit. Controllabile da script E. UI definita in HTML inline.</p>
+          <p class="status closed">Closed source</p>
+          <a href="pages/e-browser.html">Vai alla pagina</a>
+        </article>
+        <article class="feature-card">
+          <p class="eyebrow">Compilatore</p>
+          <h3>e-runtime</h3>
+          <p>Pipeline .eee → LLVM IR → codice nativo. Modalita user e kernel bare metal. Scritto in Rust con backend LLVM 18.</p>
+          <p class="status closed">Closed source</p>
+          <a href="pages/e-runtime.html">Vai alla pagina</a>
+        </article>
+        <article class="feature-card">
+          <p class="eyebrow">Kernel</p>
+          <h3>EOS Core</h3>
+          <p>Kernel bare metal in E puro. Driver PS/2, VGA text mode, shell interattiva, history, REPL aritmetico. Boot via Multiboot.</p>
+          <p class="status closed">Closed source</p>
+          <a href="pages/eos-core.html">Vai alla pagina</a>
+        </article>
+      </section>
+
+      <section class="install reveal">
+        <div>
+          <p class="kicker">Quick start</p>
+          <h2>Inizia con e-lang (open source)</h2>
+          <p style="margin-bottom:16px;color:var(--dim)">Scarica l'eseguibile, crea il tuo primo script .eee e eseguilo:</p>
+        </div>
+        <pre><code>curl -L https://github.com/costaofficial/e-lang/releases/latest/download/e -o e
+chmod +x ./e
+echo 'let x = 5
+log x * 2' > hello.eee
+./e run hello.eee</code></pre>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>EOS Platform - e-lang pubblico, moduli core privati.</p>
+      <a href="pages/e-lang.html">Inizia da e-lang</a>
+    </footer>
+
+    <script src="assets/app.js"></script>
+  </body>
+</html>
